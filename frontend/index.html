@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Price Tracker</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">⚡</div>
+      <div>
+        <h1>Price Tracker</h1>
+        <p>Compara preços em Portugal</p>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="mudarTab('pesquisar', this)">🔍 Pesquisar</button>
+      <button class="tab" onclick="mudarTab('alertas', this)">🔔 Alertas</button>
+      <button class="tab" onclick="mudarTab('notificacoes', this)">📬 Notificações</button>
+    </div>
+
+    <!-- PESQUISAR -->
+    <div id="page-pesquisar" class="page active">
+      <div class="search-bar">
+        <input id="input-pesquisa" type="text" placeholder="Ex: RTX 5070, iPhone 16..."
+          onkeydown="if(event.key==='Enter') pesquisar()">
+        <button class="btn" id="btn-pesquisar" onclick="pesquisar()">Pesquisar</button>
+      </div>
+      <div id="cache-info" class="cache-info" style="display:none">
+        <div class="cache-dot"></div>
+        <span id="cache-texto"></span>
+      </div>
+      <div id="results-count" class="results-count"></div>
+      <div id="resultados"></div>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="page-alertas" class="page">
+      <div id="lista-alertas"></div>
+    </div>
+
+    <!-- NOTIFICAÇÕES -->
+    <div id="page-notificacoes" class="page">
+      <div class="notif-header">
+        <h2>📬 Notificações</h2>
+        <button class="btn btn-green" onclick="limparNotificacoes()">Limpar</button>
+      </div>
+      <div id="lista-notificacoes"></div>
+    </div>
+  </div>
+
+  <!-- MODAL ALERTA -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3>🔔 Criar Alerta</h3>
+      <p id="modal-produto-texto"></p>
+      <input id="modal-preco" type="number" placeholder="Preço máximo (ex: 650)">
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+        <button class="btn" onclick="confirmarAlerta()">Criar Alerta</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="static/script.js"></script>
+</body>
+</html>
 
