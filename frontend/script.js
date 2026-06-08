@@ -1,7 +1,7 @@
 // API base relativo (mesmo host)
 const API = '';
 
-// util
+// util: cor por loja
 function lojaColor(loja) {
   loja = (loja || '').toLowerCase();
   if (loja.includes('pcdiga')) return '#3B82F6';
@@ -11,23 +11,28 @@ function lojaColor(loja) {
   return '#7C3AED';
 }
 
+// Tabs
 function mudarTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   if (el) el.classList.add('active');
-  document.getElementById('page-' + tab).classList.add('active');
+  const page = document.getElementById('page-' + tab);
+  if (page) page.classList.add('active');
   if (tab === 'alertas') carregarAlertas();
   if (tab === 'notificacoes') carregarNotificacoes();
 }
 
+// Toast
 function mostrarToast(msg, cor = '#10B981') {
   const t = document.getElementById('toast');
+  if (!t) return;
   t.textContent = msg;
   t.style.background = cor;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+// Pesquisar
 async function pesquisar() {
   const query = document.getElementById('input-pesquisa').value.trim();
   if (!query) return;
@@ -101,8 +106,10 @@ let produtoAtual = '';
 
 function abrirModal(produto) {
   produtoAtual = produto;
-  document.getElementById('modal-produto-texto').textContent = `Produto: ${produto}`;
-  document.getElementById('modal-preco').value = '';
+  const el = document.getElementById('modal-produto-texto');
+  if (el) el.textContent = `Produto: ${produto}`;
+  const input = document.getElementById('modal-preco');
+  if (input) input.value = '';
   document.getElementById('modal-overlay').classList.add('active');
 }
 
@@ -184,4 +191,7 @@ async function limparNotificacoes() {
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
   // mantém a tab Pesquisar ativa por defeito
+  // liga eventos se necessário (por exemplo, botão criar alerta na página de alertas)
+  const createBtn = document.getElementById('createAlertaBtn');
+  if (createBtn) createBtn.addEventListener('click', () => abrirModal('Produto (manual)'));
 });
