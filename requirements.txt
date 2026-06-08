@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+serpapi
+playwright
+sqlite3-binary
