@@ -2,6 +2,6 @@ services:
   - type: web
     name: pricetracker
     env: python
-    buildCommand: pip install -r requirements.txt && playwright install --with-deps chromium
+    buildCommand: pip install -r requirements.txt && playwright install chromium
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     plan: free
